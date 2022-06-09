@@ -50,6 +50,9 @@ class Song {
 	}
 
 	static function loadAudioFile(path:String) {
+		if (!FileSystem.exists(path))
+			path = path.replace(".ogg", ".mp3"); 
+
 		var audioData:ByteArray = ByteArray.fromFile(path);
 		var audio = new Sound();
 		audio.loadCompressedDataFromByteArray(audioData, audioData.length);

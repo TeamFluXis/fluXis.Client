@@ -1,5 +1,6 @@
 package flustix.fluXis.preloader;
 
+import flustix.fluXis.assets.FluXisText;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -17,8 +18,9 @@ class FluXisLoading extends FlxState {
 		#if desktop
 		FlxG.mouse.useSystemCursor = true;
 		#end
+		FlxG.autoPause = false;
 
-		var fluXisText = new FlxText(0, 0, 0, "fluXis", 64);
+		var fluXisText = new FluXisText(0, 0, "fluXis", 64);
 		fluXisText.screenCenter();
 		add(fluXisText);
 

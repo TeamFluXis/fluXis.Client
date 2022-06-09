@@ -35,12 +35,12 @@ class HitNote extends FlxSprite {
 		super.update(elapsed);
 		noteHolding = false;
 
-		if (Conductor.songPosition - noteTime > -140)
+		if (Conductor.songPosition - noteTime > -150)
 			noteHitable = true;
 		else
 			noteHitable = false;
 
-		if (Conductor.songPosition - noteTime > 140)
+		if (Conductor.songPosition - noteTime > 150)
 			noteMissed = true;
 		else
 			noteMissed = false;

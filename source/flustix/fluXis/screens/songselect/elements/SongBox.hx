@@ -1,5 +1,6 @@
 package flustix.fluXis.screens.songselect.elements;
 
+import flustix.fluXis.assets.FluXisText;
 import flixel.math.FlxMath;
 import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -21,7 +22,7 @@ class SongBox extends FlxSpriteGroup {
 		linkedSong = s;
 		parent = p;
 
-		var title = new FlxText(0, 0, 0, linkedSong.name, 16);
+		var title = new FluXisText(0, 0, linkedSong.name);
 		add(title);
 	}
 

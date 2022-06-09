@@ -1,5 +1,6 @@
 package flustix.fluXis.screens.gameplay;
 
+import flustix.fluXis.assets.FluXisText;
 import flixel.util.FlxStringUtil;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
@@ -8,7 +9,6 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
-import flixel.text.FlxText;
 import flixel.ui.FlxBar;
 import flustix.fluXis.assets.Skin;
 import flustix.fluXis.input.ControlOverlay;
@@ -38,7 +38,7 @@ class GameplayScreen extends FluXisScreen {
 	var accuracy = 100.00;
 	var dispAccuracy = 100.00;
 	var grade = "X";
-	var performance = new FlxText(0, 20, 0, '100%', 32);
+	var performance = new FluXisText(0, 20, '100%', 32);
 	var judgements:JudgementCounter = {
 		flawless: 0,
 		perfect: 0,
@@ -49,12 +49,14 @@ class GameplayScreen extends FluXisScreen {
 	};
 
 	// song time stuff
+	var songStarting = true;
 	var songPosition:Float = 0;
 	var startTime:Float = 0;
 	var endTime:Float = 0;
 	var progressbar:FlxBar;
-	var timeElapsed = new FlxText(10, FlxG.height - 36, 0, '', 16);
-	var timeLeft = new FlxText(0, FlxG.height - 36, 0, '', 16);
+	var timeElapsed = new FluXisText(10, FlxG.height - 36, '', 16);
+	var timeLeft = new FluXisText(0, FlxG.height - 36, '', 16);
+	var percentText = new FluXisText(0, FlxG.height - 36, '', 16);
 
 	public function new() {
 		super();
@@ -85,6 +87,7 @@ class GameplayScreen extends FluXisScreen {
 
 		add(timeElapsed);
 		add(timeLeft);
+		add(percentText);
 
 		#if mobile
 		add(new ControlOverlay());
@@ -105,8 +108,20 @@ class GameplayScreen extends FluXisScreen {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		songPosition = (Conductor.songPosition - startTime) / endTime;
-		timeLeft.text = FlxStringUtil.formatTime((endTime - Conductor.songPosition) / 1000);
+		if (songStarting) {
+			Conductor.songPosition += elapsed * 1000;
+			if (Conductor.songPosition >= 0) {
+				songStarting = false;
+				FlxG.sound.music.resume();
+			}
+		} 
+
+		songPosition = (Conductor.songPosition - startTime) / (endTime - startTime);
+
+		percentText.text = '${songPosition * 100}%';
+		percentText.screenCenter(X);
+
+		timeLeft.text = FlxStringUtil.formatTime((Conductor.songPosition - startTime) / 1000);
 		timeLeft.x = FlxG.width - timeLeft.width - 10;
 
 		if (((Conductor.songPosition - startTime) / 1000) < 0) {
@@ -144,6 +159,13 @@ class GameplayScreen extends FluXisScreen {
 	}
 
 	function updateNotes() {
+		for (note in ftrNotes) {
+			if (note.noteTime - Conductor.songPosition < (2000 * 3)) {
+				notes.add(note);
+				ftrNotes.remove(note);
+			}	
+		}
+
 		notes.forEachAlive(function(note:HitNote) {
 			note.y = staticNotes.members[note.noteLane].y + 0.45 * ((Conductor.songPosition - note.noteTime) * 3);
 			note.x = staticNotes.members[note.noteLane].x;
@@ -264,22 +286,27 @@ class GameplayScreen extends FluXisScreen {
 		endTime = SongSession.song.songNotes[SongSession.song.songNotes.length - 1][0];
 
 		for (note in SongSession.song.songNotes) {
-			var newNote = new HitNote(note[0], note[1], SINGLE);
-			notes.add(newNote);
-
 			if (note[2] > 0) {
 				var noteHold = new HitNote(note[0], note[1], HOLD);
 				noteHold.noteSustainLength = note[2];
-				notes.add(noteHold);
+				ftrNotes.push(noteHold);
 
 				var noteEnd = new HitNote(note[0] + note[2], note[1], HOLDEND);
-				notes.add(noteEnd);
+				ftrNotes.push(noteEnd);
 
 				noteHold.noteLinkedEnd = noteEnd;
 				noteEnd.noteLinkedHold = noteHold;
 			}
+
+			var newNote = new HitNote(note[0], note[1], SINGLE);
+			notes.add(newNote);
 		}
+
 		FlxG.sound.playMusic(SongSession.song.soundData);
+		FlxG.sound.music.time = 0;
+		FlxG.sound.music.pause();
+		Conductor.songPosition = -2000;
+		songStarting = true;
 	}
 
 	function hitNote(note:HitNote) {
@@ -302,32 +329,50 @@ class GameplayScreen extends FluXisScreen {
 		if (ms < 0)
 			ms *= -1;
 
-		var timing = "";
+		var jugement = "";
 
 		if (ms <= 18) {
-			timing = "Flawless";
+			jugement = "Flawless";
 			judgements.flawless++;
 			health += 0.2;
 		} else if (ms <= 40) {
-			timing = "Perfect";
+			jugement = "Perfect";
 			judgements.perfect++;
 			health += 0.2;
 		} else if (ms <= 75) {
-			timing = "Great";
+			jugement = "Great";
 			judgements.great++;
 			health += 0.1;
 		} else if (ms <= 100) {
-			timing = "Alright";
+			jugement = "Alright";
 			judgements.alright++;
 		} else if (ms <= 140) {
-			timing = "Okay";
+			jugement = "Okay";
 			judgements.okay++;
 			health -= 0.1;
 		} else {
-			timing = "Miss";
+			jugement = "Miss";
 			judgements.miss++;
 			health -= 0.2;
 		}
+
+		jugementPopUp(jugement);
+	}
+
+	function jugementPopUp(jugementString:String) {
+		var jugement = new FluXisText(0, 0, jugementString, 28);
+		jugement.setOutline();
+		jugement.screenCenter(X);
+		jugement.y = FlxG.height * 0.6;
+		jugement.maxVelocity.y = 600;
+		jugement.acceleration.y = 300;
+		add(jugement);
+
+		FlxTween.tween(jugement, {alpha: 0}, 0.6, {onComplete: (twn)->{
+			jugement.kill();
+			remove(jugement);
+			jugement.destroy();
+		}});
 	}
 
 	function removeNote(note:HitNote, ?howDoICallThis = false) {

@@ -1,5 +1,6 @@
 package flustix.fluXis;
 
+import flustix.fluXis.overlay.fps.FluXisFPS;
 import lime.media.openal.AL;
 import flixel.FlxG;
 import flixel.FlxState;

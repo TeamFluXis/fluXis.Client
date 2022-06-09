@@ -9,22 +9,21 @@ import flixel.tweens.FlxTween;
 import flustix.fluXis.assets.Skin;
 
 class FluXisBackground extends FlxTypedGroup<FlxBasic> {
-	var currentBGs:Array<FlxSprite> = [];
-
 	public function new() {
 		super();
 
 		var defaultbg = new FlxSprite().loadGraphic("assets/skin/gameplay/bg.png");
 		defaultbg.setGraphicSize(FlxG.width);
 		defaultbg.updateHitbox();
-		currentBGs[0] = defaultbg;
-		add(currentBGs[0]);
+		defaultbg.antialiasing = true;
+		add(defaultbg);
 	}
 
 	public function changebg(songID:String) {
 		var newbg = new FlxSprite().loadGraphic(Skin.songBackground(songID));
 		newbg.setGraphicSize(FlxG.width);
 		newbg.updateHitbox();
+		newbg.antialiasing = true;
 
 		if (newbg.height < FlxG.height) {
 			newbg.setGraphicSize(0, FlxG.height);
@@ -32,16 +31,13 @@ class FluXisBackground extends FlxTypedGroup<FlxBasic> {
 		}
 
 		newbg.alpha = 0;
+		newbg.screenCenter();
 		add(newbg);
-		currentBGs.push(newbg);
 
 		FlxTween.tween(newbg, {alpha: 1}, 0.3, {
 			onComplete: (twn) -> {
-				var toRemove = currentBGs.indexOf(newbg) - 1;
-				currentBGs[toRemove].kill();
-				remove(currentBGs[toRemove]);
-				currentBGs[toRemove].destroy();
-				currentBGs.remove(currentBGs[toRemove]);
+				var toRemove = members.indexOf(newbg) - 1;
+				remove(members[toRemove], true);
 			}
 		});
 	}

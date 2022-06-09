@@ -1,5 +1,6 @@
 package;
 
+import flustix.fluXis.overlay.fps.FluXisFPS;
 import flustix.fluXis.screens.gameplay.GameplayScreen;
 import flixel.FlxGame;
 import flustix.fluXis.FluXisClient;
@@ -14,5 +15,6 @@ class Main extends Sprite {
 
 		instance = new FlxGame(0, 0, FluXisLoading, 1, 120, 120, true, false);
 		addChild(instance);
+		addChild(new FluXisFPS());
 	}
 }
