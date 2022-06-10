@@ -12,6 +12,7 @@ import flustix.fluXis.assets.FluXisText;
 import flustix.fluXis.assets.Skin;
 import flustix.fluXis.integration.Discord;
 import flustix.fluXis.layers.FluXisScreen;
+import flustix.fluXis.overlay.pause.PauseMenuOverlay;
 import flustix.fluXis.screens.gameplay.note.HitNote;
 import flustix.fluXis.screens.songselect.SongSelectScreen;
 import flustix.fluXis.song.Conductor;
@@ -53,6 +54,8 @@ class GameplayScreen extends FluXisScreen {
 	var timeElapsed = new FluXisText(10, FlxG.height - 36, '', 16);
 	var timeLeft = new FluXisText(0, FlxG.height - 36, '', 16);
 	var percentText = new FluXisText(0, FlxG.height - 36, '', 16);
+
+	public var paused = false;
 
 	public function new() {
 		super();
@@ -144,8 +147,11 @@ class GameplayScreen extends FluXisScreen {
 		performance.x = FlxG.width - performance.width - 20;
 
 		#if desktop
-		if (FlxG.keys.justPressed.ESCAPE && !dead)
-			endSong();
+		if (FlxG.keys.justPressed.ESCAPE && !dead && !songStarting && !paused) {
+			FlxG.sound.music.pause();
+			client.setOverlay(new PauseMenuOverlay(this));
+			paused = true;
+		}
 		#end
 
 		if (!dead)
@@ -187,6 +193,9 @@ class GameplayScreen extends FluXisScreen {
 	}
 
 	function updateInput() {
+		if (paused)
+			return;
+
 		#if desktop
 		// just pressed
 		var JPR = [

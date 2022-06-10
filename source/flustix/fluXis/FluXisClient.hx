@@ -1,5 +1,6 @@
 package flustix.fluXis;
 
+import flustix.fluXis.layers.FluXisOverlay;
 import flixel.FlxG;
 import flixel.FlxState;
 import flustix.fluXis.background.FluXisBackground;
@@ -11,6 +12,7 @@ class FluXisClient extends FlxState {
 	// layers
 	public var bg:FluXisBackground;
 	public var screen:FluXisScreen;
+	public var overlay:FluXisOverlay;
 
 	// music stuff
 	public var curBeat:Int;
@@ -41,6 +43,21 @@ class FluXisClient extends FlxState {
 		}
 		screen.client = this;
 		add(screen);
+	}
+
+	public function setOverlay(newOverlay:FluXisOverlay) {
+		closeOverlay();
+		overlay = newOverlay;
+		overlay.client = this;
+		add(overlay);
+	}
+
+	public function closeOverlay() {
+		if (overlay == null)
+			return;
+
+		remove(overlay);
+		overlay = null;
 	}
 
 	override function update(elapsed:Float) {
