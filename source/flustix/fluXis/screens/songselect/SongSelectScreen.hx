@@ -1,5 +1,6 @@
 package flustix.fluXis.screens.songselect;
 
+import flustix.fluXis.screens.menu.MainMenuScreen;
 import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flustix.fluXis.layers.FluXisScreen;
@@ -36,6 +37,9 @@ class SongSelectScreen extends FluXisScreen {
 			changeSelec(1);
 		if (FlxG.keys.justPressed.ENTER)
 			acceptSelec();
+
+		if (FlxG.keys.justPressed.ESCAPE)
+			client.updateScreen(new MainMenuScreen());
 		#end
 
 		#if mobile
@@ -54,6 +58,7 @@ class SongSelectScreen extends FluXisScreen {
 			SongSession.curSong = FluXis.songs.length - 1;
 
 		client.bg.changebg(FluXis.songs[SongSession.curSong].id);
+		FlxG.sound.playMusic(FluXis.songs[SongSession.curSong].soundData);
 	}
 
 	function acceptSelec() {

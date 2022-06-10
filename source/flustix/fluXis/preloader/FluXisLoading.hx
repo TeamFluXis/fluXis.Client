@@ -1,11 +1,12 @@
 package flustix.fluXis.preloader;
 
+import flustix.fluXis.screens.menu.MainMenuScreen;
+import flustix.fluXis.assets.FluXisText;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flustix.fluXis.assets.FluXisText;
 import flustix.fluXis.screens.gameplay.GameplayScreen;
 import flustix.fluXis.screens.songselect.SongSelectScreen;
 import flustix.fluXis.song.Song;
@@ -27,7 +28,7 @@ class FluXisLoading extends FlxState {
 		Thread.create(() -> {
 			FluXis.songs = Song.loadSongs();
 			FluXis.log("Loaded songs!");
-			FluXis.setClient(new FluXisClient(new SongSelectScreen()));
+			FluXis.setClient(new FluXisClient(new MainMenuScreen()));
 		});
 	}
 }

@@ -1,15 +1,15 @@
 package flustix.fluXis.screens.menu;
 
 import flixel.FlxG;
-import flixel.text.FlxText;
+import flustix.fluXis.assets.FluXisText;
 import flustix.fluXis.layers.FluXisScreen;
-import flustix.fluXis.screens.gameplay.GameplayScreen;
+import flustix.fluXis.screens.songselect.SongSelectScreen;
 
 class MainMenuScreen extends FluXisScreen {
 	public function new() {
 		super();
 
-		var text = new FlxText(0, 0, 0, "b");
+		var text = new FluXisText(0, 0, "b");
 		add(text);
 	}
 
@@ -18,7 +18,7 @@ class MainMenuScreen extends FluXisScreen {
 
 		#if desktop
 		if (FlxG.keys.justPressed.ENTER) {
-			FluXis.setScreen(new GameplayScreen());
+			FluXis.setScreen(new SongSelectScreen());
 		}
 		#end
 	}

@@ -13,7 +13,6 @@
 	<set name="BUILD_DIR" value="export" />
 	<source path="source" />
 	<assets path="assets" />
-	<assets path="tmp/songs" rename="songs"/>
 
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
