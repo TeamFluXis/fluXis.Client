@@ -4,7 +4,7 @@ import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flustix.fluXis.layers.FluXisScreen;
 import flustix.fluXis.screens.gameplay.GameplayScreen;
-import flustix.fluXis.screens.songselect.elements.SongBox;
+import flustix.fluXis.screens.songselect.ui.SongBox;
 import flustix.fluXis.song.SongSession;
 
 class SongSelectScreen extends FluXisScreen {

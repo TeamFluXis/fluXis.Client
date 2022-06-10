@@ -1,4 +1,4 @@
-package flustix.fluXis.screens.songselect.elements;
+package flustix.fluXis.screens.songselect.ui;
 
 import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
