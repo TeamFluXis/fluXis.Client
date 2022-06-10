@@ -1,11 +1,10 @@
 package flustix.fluXis.screens.songselect.elements;
 
-import flustix.fluXis.assets.FluXisText;
-import flixel.math.FlxMath;
 import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
-import flixel.text.FlxText;
+import flixel.math.FlxMath;
+import flustix.fluXis.assets.FluXisText;
 import flustix.fluXis.song.SongData.SongMetaData;
 import flustix.fluXis.song.SongSession;
 

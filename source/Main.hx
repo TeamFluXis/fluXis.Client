@@ -1,9 +1,7 @@
 package;
 
-import flustix.fluXis.overlay.fps.FluXisFPS;
-import flustix.fluXis.screens.gameplay.GameplayScreen;
 import flixel.FlxGame;
-import flustix.fluXis.FluXisClient;
+import flustix.fluXis.overlay.fps.FluXisFPS;
 import flustix.fluXis.preloader.FluXisLoading;
 import openfl.display.Sprite;
 

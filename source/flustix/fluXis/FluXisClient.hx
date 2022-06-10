@@ -1,14 +1,11 @@
 package flustix.fluXis;
 
-import flustix.fluXis.overlay.fps.FluXisFPS;
-import lime.media.openal.AL;
 import flixel.FlxG;
 import flixel.FlxState;
 import flustix.fluXis.background.FluXisBackground;
-import flustix.fluXis.integration.Discord;
 import flustix.fluXis.layers.FluXisScreen;
 import flustix.fluXis.song.Conductor;
-import sys.thread.Thread;
+import lime.media.openal.AL;
 
 class FluXisClient extends FlxState {
 	// layers

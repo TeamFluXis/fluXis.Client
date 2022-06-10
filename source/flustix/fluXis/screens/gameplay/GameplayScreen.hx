@@ -1,22 +1,18 @@
 package flustix.fluXis.screens.gameplay;
 
-import flustix.fluXis.assets.FluXisText;
-import flixel.util.FlxStringUtil;
-import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
+import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
+import flixel.util.FlxStringUtil;
+import flustix.fluXis.assets.FluXisText;
 import flustix.fluXis.assets.Skin;
-import flustix.fluXis.input.ControlOverlay;
-import flustix.fluXis.input.Controls;
 import flustix.fluXis.integration.Discord;
 import flustix.fluXis.layers.FluXisScreen;
 import flustix.fluXis.screens.gameplay.note.HitNote;
-import flustix.fluXis.screens.menu.MainMenuScreen;
 import flustix.fluXis.screens.songselect.SongSelectScreen;
 import flustix.fluXis.song.Conductor;
 import flustix.fluXis.song.SongSession;

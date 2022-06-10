@@ -1,7 +1,5 @@
 package flustix.fluXis.screens.songselect;
 
-import flixel.tweens.FlxTween;
-import flustix.fluXis.input.Controls;
 import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flustix.fluXis.layers.FluXisScreen;

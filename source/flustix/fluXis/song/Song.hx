@@ -2,7 +2,6 @@ package flustix.fluXis.song;
 
 import flustix.fluXis.song.SongData;
 import haxe.Json;
-import lime.system.System;
 import openfl.media.Sound;
 import openfl.utils.ByteArray;
 import sys.FileSystem;

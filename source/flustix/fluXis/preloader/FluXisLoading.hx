@@ -1,11 +1,11 @@
 package flustix.fluXis.preloader;
 
-import flustix.fluXis.assets.FluXisText;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flustix.fluXis.assets.FluXisText;
 import flustix.fluXis.screens.gameplay.GameplayScreen;
 import flustix.fluXis.screens.songselect.SongSelectScreen;
 import flustix.fluXis.song.Song;

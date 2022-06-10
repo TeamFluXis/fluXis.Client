@@ -1,10 +1,7 @@
 package flustix.fluXis.assets;
 
 import flixel.system.FlxAssets.FlxGraphicAsset;
-import flixel.system.FlxAssets.FlxSoundAsset;
-import flixel.util.typeLimit.OneOfTwo;
 import openfl.display.BitmapData;
-import openfl.media.Sound;
 import sys.FileSystem;
 
 class Skin {
