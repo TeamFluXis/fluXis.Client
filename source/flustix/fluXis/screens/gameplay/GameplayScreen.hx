@@ -1,5 +1,6 @@
 package flustix.fluXis.screens.gameplay;
 
+import flustix.fluXis.config.Config;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -162,14 +163,14 @@ class GameplayScreen extends FluXisScreen {
 
 	function updateNotes() {
 		for (note in ftrNotes) {
-			if (note.noteTime - Conductor.songPosition < (2000 * 3)) {
+			if (note.noteTime - Conductor.songPosition < (2000 * Config.get("gameplay", "scrollspeed"))) {
 				notes.add(note);
 				ftrNotes.remove(note);
 			}	
 		}
 
 		notes.forEachAlive(function(note:HitNote) {
-			note.y = staticNotes.members[note.noteLane].y + 0.45 * ((Conductor.songPosition - note.noteTime) * 3);
+			note.y = staticNotes.members[note.noteLane].y + 0.45 * ((Conductor.songPosition - note.noteTime) * Config.get("gameplay", "scrollspeed"));
 			note.x = staticNotes.members[note.noteLane].x;
 
 			if (note.noteType == HOLDEND) {

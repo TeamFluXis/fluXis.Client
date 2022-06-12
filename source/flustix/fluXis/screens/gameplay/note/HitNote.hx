@@ -1,5 +1,6 @@
 package flustix.fluXis.screens.gameplay.note;
 
+import flustix.fluXis.config.Config;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flustix.fluXis.assets.Skin;
@@ -49,7 +50,7 @@ class HitNote extends FlxSprite {
 	 public function sustainStuff() { // just dont ask, if anyone has a better way of doing this, please make a pull request
 		if (noteType == HOLD) {
 			var beginY = noteLinkedEnd.y + noteLinkedEnd.height;
-			var endY = ((FlxG.height * 0.8) + 0.45 * ((Conductor.songPosition - noteTime) * 3)) + (114 / 2);
+			var endY = ((FlxG.height * 0.8) + 0.45 * ((Conductor.songPosition - noteTime) * Config.get("gameplay", "scrollspeed"))) + (114 / 2);
 
 			if (Conductor.songPosition > noteTime)
 				endY = (FlxG.height * 0.8) + (114 / 2);

@@ -1,5 +1,6 @@
 package;
 
+import flustix.fluXis.config.Config;
 import flixel.FlxGame;
 import flustix.fluXis.overlay.fps.FluXisFPS;
 import flustix.fluXis.preloader.FluXisLoading;
@@ -10,6 +11,7 @@ class Main extends Sprite {
 
 	public function new() {
 		super();
+		Config.load();
 
 		instance = new FlxGame(0, 0, FluXisLoading, 1, 120, 120, true, false);
 		addChild(instance);
