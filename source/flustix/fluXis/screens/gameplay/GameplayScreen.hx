@@ -117,7 +117,7 @@ class GameplayScreen extends FluXisScreen {
 
 		songPosition = (Conductor.songPosition - startTime) / (endTime - startTime);
 
-		percentText.text = '${songPosition * 100}%';
+		percentText.text = songPosition > 0 ? '${FlxMath.roundDecimal(songPosition * 100, 2)}%' : "0%" ;
 		percentText.screenCenter(X);
 
 		timeLeft.text = FlxStringUtil.formatTime((Conductor.songPosition - startTime) / 1000);
