@@ -1,7 +1,7 @@
 package flustix.fluXis.config;
 
 class ConfigCategory {
-    static var entries:Map<String, ConfigEntry> = [];
+    public var entries:Map<String, ConfigEntry> = [];
     public var catName:String;
 	public var linkedConf:Dynamic;
 

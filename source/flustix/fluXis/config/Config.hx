@@ -17,6 +17,8 @@ class Config {
         var gameplay = new ConfigCategory("gameplay", confjson);
         gameplay.addEntry("scrollspeed", 3);
         addCat(gameplay);
+
+        save();
     }
 
     static function addCat(cat:ConfigCategory) {
@@ -30,5 +32,26 @@ class Config {
             FluXis.log(ex.toString());
             return null;
         }
+    }
+
+	public static function set(cat:String, entry:String, val:Dynamic) {
+		try {
+			conf[cat].getEntry(entry).value = val;
+		} catch (ex) {
+			FluXis.log(ex.toString());
+		}
+	}
+
+    public static function save() {
+        for (category in conf) {
+            var catdata = {};
+
+            for (entry in category.entries) {
+                Reflect.setProperty(catdata, entry.entryName, entry.value);
+			}
+			Reflect.setProperty(confjson, category.catName, catdata);
+        }
+
+		File.saveContent(FluXis.getDataPath() + "config.fluxcfg", Json.stringify(confjson));
     }
 }

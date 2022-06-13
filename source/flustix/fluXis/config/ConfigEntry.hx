@@ -2,7 +2,7 @@ package flustix.fluXis.config;
 
 class ConfigEntry {
     var category:ConfigCategory;
-	var entryName:String;
+	public var entryName:String;
     var defaultValue:Dynamic;
     public var value:Dynamic; 
 
