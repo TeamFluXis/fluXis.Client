@@ -340,15 +340,15 @@ class GameplayScreen extends FluXisScreen {
 		if (ms <= 18) {
 			jugement = "Flawless";
 			judgements.flawless++;
-			health += 0.2;
+			health += 0.05;
 		} else if (ms <= 40) {
 			jugement = "Perfect";
 			judgements.perfect++;
-			health += 0.2;
+			health += 0.02;
 		} else if (ms <= 75) {
 			jugement = "Great";
 			judgements.great++;
-			health += 0.1;
+			health += 0.01;
 		} else if (ms <= 100) {
 			jugement = "Alright";
 			judgements.alright++;
