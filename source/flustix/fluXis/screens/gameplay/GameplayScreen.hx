@@ -38,7 +38,9 @@ class GameplayScreen extends FluXisScreen {
 	var accuracy = 100.00;
 	var dispAccuracy = 100.00;
 	var grade = "X";
+	var score = 0;
 	var performance = new FluXisText(0, 20, '100%', 32);
+	var scoreText = new FluXisText(20, 20, '0', 32);
 	var judgements:JudgementCounter = {
 		flawless: 0,
 		perfect: 0,
@@ -81,6 +83,7 @@ class GameplayScreen extends FluXisScreen {
 		add(healthBar);
 
 		add(performance);
+		add(scoreText);
 
 		progressbar = new FlxBar(0, FlxG.height - 10, LEFT_TO_RIGHT, FlxG.width, 10, this, 'songPosition', 0, 1);
 		progressbar.createFilledBar(0x00000000, 0xFFFFFFFF);
@@ -147,10 +150,7 @@ class GameplayScreen extends FluXisScreen {
 		if (health < 0 && !dead)
 			onDeath();
 
-		calculateAccuracy();
-		calculateGrade();
-		performance.text = '${grade} - ${FlxMath.roundDecimal(dispAccuracy, 2), 2)}%';
-		performance.x = FlxG.width - performance.width - 20;
+		calculatePerformance();
 
 		#if desktop
 		if (FlxG.keys.justPressed.ESCAPE && !dead && !songStarting && !paused) {
@@ -401,23 +401,23 @@ class GameplayScreen extends FluXisScreen {
 		note.destroy();
 	}
 
-	function calculateAccuracy() {
+	var grades:Array<Dynamic> = [["X", 100], ["O", 99], ["A+", 98], ["A", 90], ["B", 80], ["C", 70]];
+
+	function calculatePerformance() {
 		var notesHit = judgements.flawless + judgements.perfect + judgements.great + judgements.alright + judgements.okay;
 		var notesRated = (judgements.flawless) + (judgements.perfect * 0.98) + (judgements.great * 0.65) + (judgements.alright * 0.25)
 			+ (judgements.okay * 0.1);
 		var notesTotal = notesHit + judgements.miss;
 
+		// accuracy
 		accuracy = (notesRated / notesTotal) * 100;
 
 		if (notesTotal == 0)
 			accuracy = 100;
 
 		accuracy = FlxMath.roundDecimal(accuracy, 2);
-	}
 
-	var grades:Array<Dynamic> = [["X", 100], ["O", 99], ["A+", 98], ["A", 90], ["B", 80], ["C", 70]];
-
-	function calculateGrade() {
+		// grade
 		for (g in grades) {
 			if (accuracy >= g[1]) {
 				grade = g[0];
@@ -425,6 +425,21 @@ class GameplayScreen extends FluXisScreen {
 			}
 			grade = "D";
 		}
+
+		performance.text = '${grade} - ${FlxMath.roundDecimal(dispAccuracy, 2), 2)}%';
+		performance.x = FlxG.width - performance.width - 20;
+
+		var totalHits = 0;
+		for (note in SongSession.song.songNotes) {
+			totalHits++;
+			if (note[2] > 0)
+				totalHits++;
+		}
+		score = Math.floor(1000000 * (notesRated / (totalHits)));
+
+		scoreText.text = '${score}';
+		while (scoreText.text.length < 7)
+			scoreText.text = '0${scoreText.text}'; // this is dumb
 	}
 
 	function onDeath() {
@@ -449,6 +464,7 @@ class GameplayScreen extends FluXisScreen {
 
 		FlxTween.tween(healthBar, {y: 0 - healthBar.height}, 0.4, {ease: FlxEase.cubeInOut});
 		FlxTween.tween(performance, {y: 0 - performance.height}, 0.4, {ease: FlxEase.cubeInOut});
+		FlxTween.tween(scoreText, {y: 0 - scoreText.height}, 0.4, {ease: FlxEase.cubeInOut});
 
 		FlxTween.tween(timeElapsed, {y: FlxG.height}, 0.4, {ease: FlxEase.cubeInOut});
 		FlxTween.tween(percentText, {y: FlxG.height}, 0.4, {ease: FlxEase.cubeInOut});
