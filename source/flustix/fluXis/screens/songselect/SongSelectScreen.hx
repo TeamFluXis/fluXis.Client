@@ -1,5 +1,6 @@
 package flustix.fluXis.screens.songselect;
 
+import flixel.tweens.FlxTween;
 import flustix.fluXis.screens.menu.MainMenuScreen;
 import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -11,8 +12,11 @@ import flustix.fluXis.song.SongSession;
 class SongSelectScreen extends FluXisScreen {
 	var songGrp = new FlxTypedGroup<SongBox>();
 
-	public function new() {
+	public function new(?wasDead:Bool) {
 		super();
+
+		if (wasDead)
+				FlxTween.tween(FluXis.getClient(), {musicSpeed: 1}, 0.3);
 
 		add(songGrp);
 

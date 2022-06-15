@@ -1,5 +1,7 @@
 package flustix.fluXis.screens.gameplay;
 
+import flixel.tweens.FlxEase;
+import flixel.util.FlxTimer;
 import flustix.fluXis.config.Config;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -131,6 +133,9 @@ class GameplayScreen extends FluXisScreen {
 		}
 
 		if (songPosition > 1 && notes.length == 0)
+			endSong();
+
+		if (FlxG.keys.justPressed.ONE)
 			endSong();
 
 		dispHealth = FlxMath.lerp(health, dispHealth, 0.94);
@@ -425,14 +430,34 @@ class GameplayScreen extends FluXisScreen {
 	function onDeath() {
 		dead = true;
 		FlxTween.tween(client, {musicSpeed: 0}, 1.6);
-		FlxG.camera.flash(0xFFFF5555, 1.6, function() {
-			FlxTween.tween(client, {musicSpeed: 1}, 0.3);
+		FlxG.camera.flash(0xFFFF5555, 1.6);
+
+		new FlxTimer().start(0.6, (tmr) -> {
 			endSong();
 		});
 	}
 
 	function endSong() {
-		FluXis.setScreen(new SongSelectScreen());
+		for (i in 0...4) {
+			FlxTween.tween(staticNotes.members[i], {y: FlxG.height, alpha: 0}, 0.4, {startDelay: 0.1 * i, ease: FlxEase.cubeInOut});
+			FlxTween.tween(litStaticNotes.members[i], {y: FlxG.height, alpha: 0}, 0.4, {startDelay: 0.1 * i, ease: FlxEase.cubeInOut});
+		}
+
+		notes.forEachAlive((note) -> {
+			FlxTween.tween(note, {alpha: 0}, 0.4, {ease: FlxEase.cubeInOut});
+		});
+
+		FlxTween.tween(healthBar, {y: 0 - healthBar.height}, 0.4, {ease: FlxEase.cubeInOut});
+		FlxTween.tween(performance, {y: 0 - performance.height}, 0.4, {ease: FlxEase.cubeInOut});
+
+		FlxTween.tween(timeElapsed, {y: FlxG.height}, 0.4, {ease: FlxEase.cubeInOut});
+		FlxTween.tween(percentText, {y: FlxG.height}, 0.4, {ease: FlxEase.cubeInOut});
+		FlxTween.tween(timeLeft, {y: FlxG.height}, 0.4, {ease: FlxEase.cubeInOut});
+		FlxTween.tween(progressbar, {y: FlxG.height}, 0.4, {ease: FlxEase.cubeInOut});
+
+		new FlxTimer().start(0.8, (tmr) -> {
+			FluXis.setScreen(new SongSelectScreen(dead));
+		});
 	}
 }
 
