@@ -16,7 +16,7 @@ class ConfigEntry {
     }
 
     function load() {
-        value = Reflect.field(category.linkedConf, entryName);
+		value = Reflect.field(Reflect.field(category.linkedConf, category.catName), entryName);
         if (value == null)
             value = defaultValue;
     }
