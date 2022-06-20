@@ -53,6 +53,7 @@ class SongSelectScreen extends FluXisScreen {
 	}
 
 	function changeSelec(by:Int = 0) {
+		var prevSong = SongSession.curSong;
 		SongSession.curSong += by;
 
 		if (SongSession.curSong < 0)
@@ -61,8 +62,10 @@ class SongSelectScreen extends FluXisScreen {
 		if (SongSession.curSong > FluXis.songs.length - 1)
 			SongSession.curSong = FluXis.songs.length - 1;
 
-		client.bg.changebg(FluXis.songs[SongSession.curSong].id);
-		FlxG.sound.playMusic(FluXis.songs[SongSession.curSong].soundData);
+		if (prevSong != SongSession.curSong) {
+			client.bg.changebg(FluXis.songs[SongSession.curSong].id, by < 0);
+			FlxG.sound.playMusic(FluXis.songs[SongSession.curSong].soundData);
+		}
 	}
 
 	function acceptSelec() {

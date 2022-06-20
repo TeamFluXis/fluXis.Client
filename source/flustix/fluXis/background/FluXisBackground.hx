@@ -1,5 +1,6 @@
 package flustix.fluXis.background;
 
+import flixel.tweens.FlxEase;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -18,8 +19,8 @@ class FluXisBackground extends FlxTypedGroup<FlxBasic> {
 		add(defaultbg);
 	}
 
-	public function changebg(songID:String) {
-		var newbg = new FlxSprite().loadGraphic(Skin.songBackground(songID));
+	public function changebg(songID:String, top:Bool = false) { 
+		var newbg = new FlxSprite(0, FlxG.height).loadGraphic(Skin.songBackground(songID));
 		newbg.setGraphicSize(FlxG.width);
 		newbg.updateHitbox();
 		newbg.antialiasing = true;
@@ -29,11 +30,14 @@ class FluXisBackground extends FlxTypedGroup<FlxBasic> {
 			newbg.updateHitbox();
 		}
 
-		newbg.alpha = 0;
-		newbg.screenCenter();
+		newbg.screenCenter(X);
 		add(newbg);
 
-		FlxTween.tween(newbg, {alpha: 1}, 0.3, {
+		if (top)
+			newbg.y = 0 - newbg.height;
+
+		FlxTween.tween(newbg, {y: (FlxG.height / 2) - (newbg.height / 2)}, 0.3, {
+			ease: FlxEase.cubeOut,
 			onComplete: (twn) -> {
 				var toRemove = members.indexOf(newbg) - 1;
 				remove(members[toRemove], true);
