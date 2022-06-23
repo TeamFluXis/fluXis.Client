@@ -36,7 +36,7 @@ class FluXisBackground extends FlxTypedGroup<FlxBasic> {
 		if (top)
 			newbg.y = 0 - newbg.height;
 
-		FlxTween.tween(newbg, {y: (FlxG.height / 2) - (newbg.height / 2)}, 0.3, {
+		FlxTween.tween(newbg, {y: (FlxG.height / 2) - (newbg.height / 2)}, 0.5, {
 			ease: FlxEase.cubeOut,
 			onComplete: (twn) -> {
 				var toRemove = members.indexOf(newbg) - 1;
