@@ -33,16 +33,15 @@ class SongBox extends FlxSpriteGroup {
 		if (selected) {
 			ftrY = (FlxG.height / 2) - (height / 2);
 			ftrX = 20;
+			y = FlxMath.lerp(ftrY, y, 0.8);
 		} else {
 			if (ID < SongSession.curSong) {
-				ftrY = parent.members[ID + 1].y - height;
+				y = parent.members[ID + 1].y - height;
 			} else if (ID > SongSession.curSong) {
-				ftrY = parent.members[ID - 1].y + height;
+				y = parent.members[ID - 1].y + height;
 			}
 			ftrX = 20 + (10 * (SongSession.curSong - ID));
 		}
-
 		x = FlxMath.lerp(ftrX, x, 0.8);
-		y = FlxMath.lerp(ftrY, y, 0.8);
 	}
 }
