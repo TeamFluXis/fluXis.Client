@@ -17,9 +17,9 @@ class PauseMenuOverlay extends FluXisOverlay {
     var selections = ["continue", "restart", "back"];
     var curSelec = 0;
 
-    public function new(parent:GameplayScreen) {
+    public function new(p:GameplayScreen) {
         super();
-        this.parent = parent;
+        this.parent = p;
 
         bg = new FlxSprite().loadGraphic(Skin.getTexture("pause/bg"));
         bg.setGraphicSize(FlxG.width);
@@ -31,7 +31,7 @@ class PauseMenuOverlay extends FluXisOverlay {
 
         for (i in 0...selections.length) {
             var item = new FlxSprite().loadGraphic(Skin.getTexture('pause/${selections[i]}'));
-			item.y = i != 0 ? itemGrp.members[i - 1].y + itemGrp.members[i - 1].height : 0;
+			item.x = i != 0 ? itemGrp.members[i - 1].x + itemGrp.members[i - 1].width + 20 : 0;
             item.antialiasing = true;
             item.ID = i;
             itemGrp.add(item);
@@ -44,9 +44,9 @@ class PauseMenuOverlay extends FluXisOverlay {
     override function update(elapsed:Float) {
         super.update(elapsed);
 
-        if (FlxG.keys.justPressed.UP)
+        if (FlxG.keys.justPressed.LEFT)
             changeSelec(-1);
-		if (FlxG.keys.justPressed.DOWN)
+		if (FlxG.keys.justPressed.RIGHT)
 			changeSelec(1);
 
         if (FlxG.keys.justPressed.ESCAPE && !justOpened) 
@@ -66,9 +66,12 @@ class PauseMenuOverlay extends FluXisOverlay {
 			curSelec = 0;
 
 		for (item in itemGrp.members) {
-			item.screenCenter(X);
-			if (item.ID == curSelec)
-                item.x += 50;
+			item.screenCenter(Y);
+            item.alpha = 0.8;
+			if (item.ID == curSelec) {
+				item.y -= 10;
+			    item.alpha = 1;
+            }
 		}
     }
 
