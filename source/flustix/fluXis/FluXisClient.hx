@@ -63,8 +63,12 @@ class FluXisClient extends FlxState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.sound.music != null && FlxG.sound.music.playing)
-			Conductor.songPosition = FlxG.sound.music.time;
+		if (FlxG.sound.music != null && FlxG.sound.music.playing) {
+			Conductor.songPosition += elapsed;
+			if (Conductor.songPosition - FlxG.sound.music.time > 16 || Conductor.songPosition - FlxG.sound.music.time < 16) {
+				resyncMusic();
+			}
+		}
 
 		lastStep = curStep;
 		updateStep();
@@ -89,5 +93,9 @@ class FluXisClient extends FlxState {
 
 	function updateBeat() {
 		curBeat = Math.floor(curStep / 4);
+	}
+
+	function resyncMusic() {
+		Conductor.songPosition = FlxG.sound.music.time;
 	}
 }
