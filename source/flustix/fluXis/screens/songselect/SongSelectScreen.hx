@@ -1,5 +1,6 @@
 package flustix.fluXis.screens.songselect;
 
+import flixel.util.FlxTimer;
 import flixel.tweens.FlxTween;
 import flustix.fluXis.screens.menu.MainMenuScreen;
 import flixel.FlxG;
@@ -34,17 +35,19 @@ class SongSelectScreen extends FluXisScreen {
 			box.selected = SongSession.curSong == box.ID;
 		}
 
-		#if desktop
-		if (FlxG.keys.justPressed.UP)
-			changeSelec(-1);
-		if (FlxG.keys.justPressed.DOWN)
-			changeSelec(1);
-		if (FlxG.keys.justPressed.ENTER)
-			acceptSelec();
+		if (allowInput) {
+			#if desktop
+			if (FlxG.keys.justPressed.UP)
+				changeSelec(-1);
+			if (FlxG.keys.justPressed.DOWN)
+				changeSelec(1);
+			if (FlxG.keys.justPressed.ENTER)
+				acceptSelec();
 
-		if (FlxG.keys.justPressed.ESCAPE)
-			client.updateScreen(new MainMenuScreen());
-		#end
+			if (FlxG.keys.justPressed.ESCAPE)
+				client.updateScreen(new MainMenuScreen());
+			#end
+		}
 
 		#if mobile
 		if (Controls.justTouched())
@@ -69,6 +72,7 @@ class SongSelectScreen extends FluXisScreen {
 	}
 
 	function acceptSelec() {
+		allowInput = false;
 		SongSession.song = {
 			songName: FluXis.songs[SongSession.curSong].name,
 			songArtist: FluXis.songs[SongSession.curSong].artist,
@@ -79,6 +83,9 @@ class SongSelectScreen extends FluXisScreen {
 			songID: FluXis.songs[SongSession.curSong].id,
 			soundData: FluXis.songs[SongSession.curSong].soundData
 		};
-		FluXis.setScreen(new GameplayScreen());
+
+		new FlxTimer().start(0.8, (tmr)->{
+			FluXis.setScreen(new GameplayScreen());
+		});
 	}
 }

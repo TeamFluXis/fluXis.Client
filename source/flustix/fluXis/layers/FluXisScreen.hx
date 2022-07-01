@@ -5,6 +5,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 
 class FluXisScreen extends FlxTypedGroup<FlxBasic> {
 	public var client:FluXisClient;
+	public var allowInput:Bool = true;
 
 	public function new() {
 		super();
