@@ -1,18 +1,17 @@
 package flustix.fluXis.screens.gameplay;
 
-import flixel.tweens.FlxEase;
-import flixel.util.FlxTimer;
-import flustix.fluXis.config.Config;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
+import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxStringUtil;
-import flustix.fluXis.assets.FluXisText;
+import flixel.util.FlxTimer;
 import flustix.fluXis.assets.Skin;
+import flustix.fluXis.config.Config;
 import flustix.fluXis.integration.Discord;
 import flustix.fluXis.layers.FluXisScreen;
 import flustix.fluXis.overlay.pause.PauseMenuOverlay;
@@ -20,6 +19,7 @@ import flustix.fluXis.screens.gameplay.note.HitNote;
 import flustix.fluXis.screens.songselect.SongSelectScreen;
 import flustix.fluXis.song.Conductor;
 import flustix.fluXis.song.SongSession;
+import flustix.fluXis.ui.FluXisText;
 
 class GameplayScreen extends FluXisScreen {
 	// notes
@@ -119,11 +119,11 @@ class GameplayScreen extends FluXisScreen {
 				songStarting = false;
 				FlxG.sound.music.resume();
 			}
-		} 
+		}
 
 		songPosition = (Conductor.songPosition - startTime) / (endTime - startTime);
 
-		percentText.text = songPosition > 0 ? '${FlxMath.roundDecimal(songPosition * 100, 2)}%' : "0%" ;
+		percentText.text = songPosition > 0 ? '${FlxMath.roundDecimal(songPosition * 100, 2)}%' : "0%";
 		percentText.screenCenter(X);
 
 		timeLeft.text = FlxStringUtil.formatTime((Conductor.songPosition - startTime) / 1000);
@@ -171,7 +171,7 @@ class GameplayScreen extends FluXisScreen {
 			if (note.noteTime - Conductor.songPosition < (2000 * Config.get("gameplay", "scrollspeed"))) {
 				notes.add(note);
 				ftrNotes.remove(note);
-			}	
+			}
 		}
 
 		notes.forEachAlive(function(note:HitNote) {
@@ -379,11 +379,13 @@ class GameplayScreen extends FluXisScreen {
 		jugement.acceleration.y = 300;
 		add(jugement);
 
-		FlxTween.tween(jugement, {alpha: 0}, 0.6, {onComplete: (twn)->{
-			jugement.kill();
-			remove(jugement);
-			jugement.destroy();
-		}});
+		FlxTween.tween(jugement, {alpha: 0}, 0.6, {
+			onComplete: (twn) -> {
+				jugement.kill();
+				remove(jugement);
+				jugement.destroy();
+			}
+		});
 	}
 
 	function removeNote(note:HitNote, ?howDoICallThis = false) {

@@ -1,14 +1,14 @@
 package flustix.fluXis.screens.songselect.ui;
 
-import flustix.fluXis.assets.Skin;
-import flixel.FlxSprite;
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
-import flustix.fluXis.assets.FluXisText;
+import flustix.fluXis.assets.Skin;
 import flustix.fluXis.song.SongData.SongMetaData;
 import flustix.fluXis.song.SongSession;
+import flustix.fluXis.ui.FluXisText;
 
 class SongBox extends FlxSpriteGroup {
 	public var selected:Bool = false;
@@ -23,7 +23,7 @@ class SongBox extends FlxSpriteGroup {
 		super();
 		linkedSong = s;
 		parentgrp = p;
-		
+
 		songbg = new FlxSprite().loadGraphic(Skin.getTexture("songselect/songbg"));
 		add(songbg);
 

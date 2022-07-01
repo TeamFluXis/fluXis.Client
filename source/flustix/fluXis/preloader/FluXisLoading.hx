@@ -1,18 +1,18 @@
 package flustix.fluXis.preloader;
 
-import flixel.group.FlxSpriteGroup;
-import flixel.FlxSprite;
-import flustix.fluXis.screens.menu.MainMenuScreen;
-import flustix.fluXis.assets.FluXisText;
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flustix.fluXis.screens.gameplay.GameplayScreen;
+import flustix.fluXis.screens.menu.MainMenuScreen;
 import flustix.fluXis.screens.songselect.SongSelectScreen;
 import flustix.fluXis.song.Song;
 import flustix.fluXis.song.SongSession;
+import flustix.fluXis.ui.FluXisText;
 import sys.thread.Thread;
 
 class FluXisLoading extends FlxState {
@@ -33,7 +33,9 @@ class FluXisLoading extends FlxState {
 		fluXisText.screenCenter(X);
 		textGrp.add(fluXisText);
 
-		var infoText = new FluXisText(0, 100, "an open-source vertical scrolling rhythm game.\n\nthis project is still very in development.\nif encounter any bugs, please report them on the github!", 28);
+		var infoText = new FluXisText(0, 100,
+			"an open-source vertical scrolling rhythm game.\n\nthis project is still very in development.\nif encounter any bugs, please report them on the github!",
+			28);
 		infoText.alignment = CENTER;
 		infoText.screenCenter(X);
 		textGrp.add(infoText);
@@ -69,6 +71,7 @@ class FluXisLoading extends FlxState {
 		FlxTween.tween(overlay, {alpha: 1}, 0.6, {
 			onComplete: (twn) -> {
 				FluXis.setClient(new FluXisClient(new MainMenuScreen()));
-		}});
+			}
+		});
 	}
 }

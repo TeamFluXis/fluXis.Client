@@ -1,4 +1,4 @@
-package flustix.fluXis.assets;
+package flustix.fluXis.ui;
 
 import flixel.text.FlxText;
 
