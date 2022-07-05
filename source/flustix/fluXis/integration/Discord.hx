@@ -1,6 +1,6 @@
 package flustix.fluXis.integration;
 
-#if desktop
+#if cpp
 import discord_rpc.DiscordRpc;
 import sys.thread.Thread;
 

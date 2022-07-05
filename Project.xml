@@ -17,7 +17,7 @@
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
-	<haxelib name="discord_rpc"/>
+	<haxelib name="discord_rpc" if="cpp"/>
 
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
 	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />

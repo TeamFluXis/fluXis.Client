@@ -100,7 +100,7 @@ class GameplayScreen extends FluXisScreen {
 
 		loadSong();
 
-		#if desktop
+		#if cpp
 		Discord.update({
 			details: "Playing a song",
 			state: '${SongSession.song.songName} - ${SongSession.song.songArtist} [${SongSession.song.songDifficulty}]',
