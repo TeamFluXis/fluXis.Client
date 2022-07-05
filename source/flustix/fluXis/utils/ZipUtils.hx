@@ -9,6 +9,9 @@ import haxe.zip.Reader;
 
 using StringTools;
 
+/**
+* things for unziping and zipping stuff
+*/
 class ZipUtils {
     /**
     * Unzip a file to a directory
