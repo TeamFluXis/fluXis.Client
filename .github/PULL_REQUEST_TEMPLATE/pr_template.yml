@@ -1,0 +1,16 @@
+name: Pull Request
+description: Add a new feature / fix stuff
+labels: [pr_request]
+body:
+  - type: textarea
+    attributes:
+      label: Describe what you added.
+      description: What exactly does the stuff you added do?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Why should we add this?
+      description: Explain why this could he helpful/needed.
+    validations:
+      required: true
