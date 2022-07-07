@@ -18,6 +18,11 @@ class Config {
         gameplay.addEntry("scrollspeed", 3);
         addCat(gameplay);
 
+		var ui = new ConfigCategory("ui", confjson);
+		ui.addEntry("bgdim", 0.4);
+		ui.addEntry("bgblur", 0);
+		addCat(ui);
+
         save();
     }
 

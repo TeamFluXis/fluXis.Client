@@ -12,7 +12,6 @@ class ConfigEntry {
         defaultValue = val;
 
         load();
-        trace(value);
     }
 
     function load() {

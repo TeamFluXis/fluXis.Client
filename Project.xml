@@ -6,7 +6,7 @@
 	<app preloader="flixel.system.FlxPreloader" />
 	<set name="SWF_VERSION" value="11.8" />
 
-	<window width="1600" height="900" fps="120" background="#000000" hardware="true" vsync="false" />
+	<window width="0" height="0" fps="120" background="#000000" hardware="true" vsync="false" />
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="false" />
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
 
@@ -18,10 +18,13 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
 	<haxelib name="discord_rpc" if="cpp"/>
+	<haxelib name="crashdumper"/>
 
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
 	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
 	<haxedef name="FLX_NO_TOUCH" if="desktop" />
+	<haxedef name="HXCPP_STACK_LINE" />
+	<haxedef name="HXCPP_STACK_TRACE"/>
 	
 	<!-- <haxedef name="FLX_NO_DEBUG" unless="debug" /> -->
 

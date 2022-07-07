@@ -1,5 +1,7 @@
 package flustix.fluXis.background;
 
+import flustix.fluXis.config.Config;
+import flixel.util.FlxColor;
 import flixel.tweens.FlxEase;
 import flixel.FlxBasic;
 import flixel.FlxG;
@@ -17,13 +19,19 @@ class FluXisBackground extends FlxTypedGroup<FlxBasic> {
 		defaultbg.updateHitbox();
 		defaultbg.antialiasing = true;
 		add(defaultbg);
+
+		var dim = FlxColor.fromHSL(0, 0, 1 - Config.get("ui", "bgdim"), 1);
+		defaultbg.color = dim;
 	}
 
 	public function changebg(songID:String, top:Bool = false) { 
 		var newbg = new FlxSprite(0, FlxG.height).loadGraphic(Skin.songBackground(songID));
-		newbg.setGraphicSize(FlxG.width);
+		newbg.setGraphicSize(Std.int(FlxG.width * 1.1));
 		newbg.updateHitbox();
 		newbg.antialiasing = true;
+
+		var dim = FlxColor.fromHSL(0, 0, Config.get("ui", "bgdim"), 1);
+		newbg.color = dim;
 
 		if (newbg.height < FlxG.height) {
 			newbg.setGraphicSize(0, FlxG.height);

@@ -1,5 +1,6 @@
 package flustix.fluXis.overlay.pause;
 
+import flustix.fluXis.ui.FluXisSprite;
 import flustix.fluXis.screens.songselect.SongSelectScreen;
 import flixel.group.FlxSpriteGroup;
 import flustix.fluXis.screens.gameplay.GameplayScreen;
@@ -13,7 +14,7 @@ class PauseMenuOverlay extends FluXisOverlay {
     var parent:GameplayScreen;
     var justOpened = true;
 
-    var itemGrp = new FlxSpriteGroup();
+	var itemGrp = new FlxTypedSpriteGroup<FlxSprite>();
     var selections = ["continue", "restart", "back"];
     var curSelec = 0;
 
@@ -30,10 +31,16 @@ class PauseMenuOverlay extends FluXisOverlay {
         add(itemGrp);
 
         for (i in 0...selections.length) {
-            var item = new FlxSprite().loadGraphic(Skin.getTexture('pause/${selections[i]}'));
+			var item = new FlxSprite(Skin.getTexture('pause/${selections[i]}'));
 			item.x = i != 0 ? itemGrp.members[i - 1].x + itemGrp.members[i - 1].width + 20 : 0;
             item.antialiasing = true;
             item.ID = i;
+            item.alpha = 0.6;
+            /* item.hoverData = {
+                time: 0.3,
+				hovered: {alpha: 1},
+                normal: {alpha: 0.6}
+            }; */
             itemGrp.add(item);
         }
 
@@ -66,12 +73,7 @@ class PauseMenuOverlay extends FluXisOverlay {
 			curSelec = 0;
 
 		for (item in itemGrp.members) {
-			item.screenCenter(Y);
-            item.alpha = 0.8;
-			if (item.ID == curSelec) {
-				item.y -= 10;
-			    item.alpha = 1;
-            }
+            item.alpha = item.ID == curSelec ? 1 : 0.6;
 		}
     }
 

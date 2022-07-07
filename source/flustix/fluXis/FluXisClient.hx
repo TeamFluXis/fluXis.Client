@@ -1,5 +1,9 @@
 package flustix.fluXis;
 
+import flustix.fluXis.config.Config;
+import openfl.filters.BitmapFilterQuality;
+import openfl.filters.BlurFilter;
+import flixel.FlxCamera;
 import flustix.fluXis.layers.FluXisOverlay;
 import flixel.FlxG;
 import flixel.FlxState;
@@ -13,6 +17,14 @@ class FluXisClient extends FlxState {
 	public var bg:FluXisBackground;
 	public var screen:FluXisScreen;
 	public var overlay:FluXisOverlay;
+
+	// layer cameras
+	public var bgCamera:FlxCamera;
+	public var screenCamera:FlxCamera;
+	public var overlayCamera:FlxCamera;
+
+	// camera filters
+	var blurFilter = new BlurFilter(50 * Config.get("ui", "bgblur"), 50 * Config.get("ui", "bgblur"), BitmapFilterQuality.HIGH);
 
 	// music stuff
 	public var curBeat:Int;
@@ -28,10 +40,27 @@ class FluXisClient extends FlxState {
 	override function create() {
 		super.create();
 
+		FlxG.autoPause = false;
+
+		bgCamera = new FlxCamera();
+		bgCamera.bgColor = 0x00000000;
+		bgCamera.setFilters([blurFilter]);
+		FlxG.cameras.add(bgCamera);
+
+		screenCamera = new FlxCamera();
+		screenCamera.bgColor = 0x00000000;
+		FlxG.cameras.add(screenCamera);
+
+		overlayCamera = new FlxCamera();
+		overlayCamera.bgColor = 0x00000000;
+		FlxG.cameras.add(overlayCamera);
+
 		bg = new FluXisBackground();
+		bg.cameras = [FlxG.camera, bgCamera];
 		add(bg);
 
 		screen.client = this;
+		screen.camera = screenCamera;
 		add(screen);
 	}
 
@@ -42,6 +71,7 @@ class FluXisClient extends FlxState {
 			FlxG.inputs.onStateSwitch();
 		}
 		screen.client = this;
+		screen.camera = screenCamera;
 		add(screen);
 	}
 
@@ -49,6 +79,7 @@ class FluXisClient extends FlxState {
 		closeOverlay();
 		overlay = newOverlay;
 		overlay.client = this;
+		overlay.camera = overlayCamera;
 		add(overlay);
 	}
 
@@ -64,8 +95,8 @@ class FluXisClient extends FlxState {
 		super.update(elapsed);
 
 		if (FlxG.sound.music != null && FlxG.sound.music.playing) {
-			Conductor.songPosition += elapsed;
-			if (Conductor.songPosition - FlxG.sound.music.time > 16 || Conductor.songPosition - FlxG.sound.music.time < 16) {
+			Conductor.songPosition += elapsed * 1000;
+			if (Conductor.songPosition - FlxG.sound.music.time > 16 || Conductor.songPosition - FlxG.sound.music.time < -16) {
 				resyncMusic();
 			}
 		}

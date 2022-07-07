@@ -447,7 +447,7 @@ class GameplayScreen extends FluXisScreen {
 	function onDeath() {
 		dead = true;
 		FlxTween.tween(client, {musicSpeed: 0}, 1.6);
-		FlxG.camera.flash(0xFFFF5555, 1.6);
+		client.screenCamera.flash(0xFFFF5555, 1.6);
 
 		new FlxTimer().start(0.6, (tmr) -> {
 			endSong();
