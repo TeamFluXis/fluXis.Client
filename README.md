@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/TeamFluXis/fluXis.Client/main/docs/assets/banner.png" alt="fluXis banner"/>
+  <img width="1280" src="https://raw.githubusercontent.com/TeamFluXis/fluXis.Client/main/docs/assets/banner.png" alt="fluXis banner"/>
 </p>
 
 
