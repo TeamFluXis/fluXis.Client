@@ -1,5 +1,7 @@
-# fluXis
-An open-source vertical scrolling rhythm game.
+<p align="center">
+  <img src="docs/assets/banner.png" alt="fluXis banner"/>
+</p>
+
 
 ## Credits
 - [Flustix](https://twitter.com/flustix_) - Coding and Design
