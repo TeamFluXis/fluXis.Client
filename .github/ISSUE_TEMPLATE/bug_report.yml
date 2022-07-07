@@ -1,1 +1,40 @@
-todo: change this
+name: Bug report
+description: Report errors
+labels: [bug]
+body:
+  - type: checkboxes
+    attributes:
+      label: Is this a new issue?
+      description: Please check the other issues if this was already reported.
+      options:
+        - label: Yes, this is a new issue
+          required: true
+  - type: textarea
+    attributes:
+      label: Version you're using
+      description: The version is at the bottom of the Main menu or on the first page of the settings.
+      value: |
+        - fluXis version:
+      placeholder: |
+        - Spotify version: <insert version here>
+      render: Markdown
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: What exactly is happening?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: What did you do so this bug happens?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Screenshots
+      description: Put screenshots of the bug here.
+    validations:
+      required: true
