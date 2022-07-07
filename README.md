@@ -1,6 +1,8 @@
-<p align="center">
-  <img width="1280" src="https://raw.githubusercontent.com/TeamFluXis/fluXis.Client/main/docs/assets/banner.png" alt="fluXis banner"/>
-</p>
+<h3 align="center">
+    <a href="https://fluxis.foxes4life.net/">
+        <img width="600px" src="https://raw.githubusercontent.com/TeamFluXis/fluXis.Client/main/docs/assets/banner.png" alt="fluXis banner"/>
+    </a>
+</h3>
 
 
 ## Credits
