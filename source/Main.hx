@@ -57,11 +57,7 @@ class Main extends Sprite {
 	private function onFileDropped(filePath:String):Void {
 		FluXis.log("File dropped: " + filePath);
 
-		#if neko
 		if (filePath.endsWith(".fluxmp"))
 			ImportUtils.fluxmp(filePath);
-		#else
-		return;
-		#end
 	}
 }

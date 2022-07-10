@@ -15,37 +15,55 @@ class Song {
 		var list = [];
 		for (songFolder in FileSystem.readDirectory(FluXis.getDataPath() + "songs/")) {
 			if (FileSystem.isDirectory(FluXis.getDataPath() + 'songs/${songFolder}/')) {
-				for (songFile in FileSystem.readDirectory(FluXis.getDataPath() + 'songs/${songFolder}/')) {
-					if (songFile == "metadata.fluxsm") {
-						var leTempData = readMetaData(File.getContent(FluXis.getDataPath() + 'songs/' + songFolder + '/' + songFile));
-
-						var map:SongMetaData = {
-							artist: leTempData.artist,
-							name: leTempData.name,
-							diffs: leTempData.diffs,
-							id: songFolder,
-							charts: [],
-							soundData: loadAudioFile(FluXis.getDataPath() + "songs/" + songFolder + "/audio.ogg")
-						};
-
-						for (diff in map.diffs) {
-							var diffdata = loadDiff(songFolder, diff);
-							if (diffdata != null)
-								map.charts.push(diffdata);
-						}
-
-						if (map.charts.length > 0) {
-							list.push(map);
-						} else {
-							trace('map ' + songFolder + ' does not have any diffs!');
-						}
-
-						leTempData = null;
-					}
-				}
+				addSong(songFolder, list);
 			}
 		}
+
+		list.sort(function(a:SongMetaData, b:SongMetaData):Int {
+			var a2 = a.name.toUpperCase();
+			var b2 = b.name.toUpperCase();
+
+			if (a2 < b2) {
+				return -1;
+			} else if (a2 > b2) {
+				return 1;
+			} else {
+				return 0;
+			}
+		});
+
 		return list;
+	}
+
+	public static function addSong(id:String, list:Array<SongMetaData>) {
+		for (songFile in FileSystem.readDirectory(FluXis.getDataPath() + 'songs/${id}/')) {
+			if (songFile == "metadata.fluxsm") {
+				var leTempData = readMetaData(File.getContent(FluXis.getDataPath() + 'songs/' + id + '/' + songFile));
+
+				var map:SongMetaData = {
+					artist: leTempData.artist,
+					name: leTempData.name,
+					diffs: leTempData.diffs,
+					id: id,
+					charts: [],
+					soundData: loadAudioFile(FluXis.getDataPath() + "songs/" + id + "/audio.ogg")
+				};
+
+				for (diff in map.diffs) {
+					var diffdata = loadDiff(id, diff);
+					if (diffdata != null)
+						map.charts.push(diffdata);
+				}
+
+				if (map.charts.length > 0) {
+					list.push(map);
+				} else {
+					trace('map ' + id + ' does not have any diffs!');
+				}
+
+				leTempData = null;
+			}
+		}
 	}
 
 	static function loadAudioFile(path:String) {
