@@ -23,6 +23,13 @@ class Config {
 		ui.addEntry("bgblur", 0);
 		addCat(ui);
 
+        var display = new ConfigCategory("display", confjson);
+        display.addEntry("width", 1600);
+        display.addEntry("height", 900);
+		display.addEntry("fullscreen", false);
+		display.addEntry("framerate", 120);
+        addCat(display);
+
         save();
     }
 

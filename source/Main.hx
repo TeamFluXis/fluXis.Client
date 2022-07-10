@@ -21,7 +21,26 @@ class Main extends Sprite {
 
 		Lib.current.stage.window.onDropFile.add(onFileDropped);
 
-		instance = new FlxGame(Std.int(Capabilities.screenResolutionX), Std.int(Capabilities.screenResolutionY), FluXisLoading, 1, 120, 120, true, true);
+		var gameW:Int = Config.get("display", "width");
+		var gameH:Int = Config.get("display", "height");
+		var gameFullscreen:Bool = Config.get("display", "fullscreen");
+		var gameFramerate:Int = Config.get("display", "framerate");
+
+		var screenW:Float = Capabilities.screenResolutionX;
+		var screenH:Float = Capabilities.screenResolutionY;
+
+		if (gameFullscreen) {
+			gameW = Std.int(screenW);
+			gameH = Std.int(screenH);
+		}
+
+		Lib.current.stage.window.width = gameW;
+		Lib.current.stage.window.height = gameH;
+		Lib.current.stage.window.x = Std.int((screenW - gameW) / 2);
+		Lib.current.stage.window.y = Std.int((screenH - gameH) / 2);
+		Lib.current.stage.frameRate = gameFramerate;
+
+		instance = new FlxGame(gameW, gameH, FluXisLoading, 1, gameFramerate, gameFramerate, true, gameFullscreen);
 		addChild(instance);
 		addChild(new FluXisFPS());
 	}

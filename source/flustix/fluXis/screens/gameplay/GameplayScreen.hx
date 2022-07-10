@@ -1,5 +1,6 @@
 package flustix.fluXis.screens.gameplay;
 
+import flustix.fluXis.utils.MathUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -141,8 +142,8 @@ class GameplayScreen extends FluXisScreen {
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
 
-		dispHealth = FlxMath.lerp(health, dispHealth, 0.94);
-		dispAccuracy = FlxMath.lerp(accuracy, dispAccuracy, 0.94);
+		dispHealth = MathUtils.lerp(health, dispHealth, 0.94);
+		dispAccuracy = MathUtils.lerp(accuracy, dispAccuracy, 0.94);
 
 		if (health > 2)
 			health = 2;

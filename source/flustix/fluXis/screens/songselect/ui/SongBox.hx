@@ -1,5 +1,6 @@
 package flustix.fluXis.screens.songselect.ui;
 
+import flustix.fluXis.utils.MathUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -46,11 +47,11 @@ class SongBox extends FlxSpriteGroup {
 		songbgselected.visible = selected;
 
 		if (selected) {
-			x = FlxMath.lerp(FlxG.width - 500, x, 0.8);
-			y = FlxMath.lerp((FlxG.height / 2) - (height / 2), y, 0.8);
+			x = MathUtils.lerp(FlxG.width - 500, x, 0.8);
+			y = MathUtils.lerp((FlxG.height / 2) - (height / 2), y, 0.8);
 		} else {
 			if (!FluXis.getClient().screen.allowInput) {
-				x = FlxMath.lerp(FlxG.width, x, 0.8);
+				x = MathUtils.lerp(FlxG.width, x, 0.8);
 			} else {
 				if (ID < SongSession.curSong) {
 					x = parentgrp.members[ID + 1].x + 57;
