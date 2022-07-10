@@ -17,6 +17,7 @@ class Config {
 
         var gameplay = new ConfigCategory("gameplay", confjson);
         gameplay.addEntry("scrollspeed", 3);
+        gameplay.addEntry("smoothsync", false);
         addCat(gameplay);
 
 		var ui = new ConfigCategory("ui", confjson);
@@ -54,7 +55,11 @@ class Config {
     }
 
     public static function get(cat:String, entry:String):Dynamic {
-        return conf[cat].getEntry(entry).value;
+		try {
+			return conf[cat].getEntry(entry).value;
+		} catch (ex) {
+            return null;
+		}
     }
 
 	public static function set(cat:String, entry:String, val:Dynamic) {

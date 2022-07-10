@@ -14,6 +14,8 @@
 	<source path="source" />
 	<assets path="assets" />
 
+	<assets path="deps/7z" rename='util/7z' if="windows"/>
+
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />

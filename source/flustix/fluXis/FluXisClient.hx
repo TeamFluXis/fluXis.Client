@@ -96,8 +96,12 @@ class FluXisClient extends FlxState {
 		super.update(elapsed);
 
 		if (FlxG.sound.music != null && FlxG.sound.music.playing) {
-			Conductor.songPosition += elapsed * 1000;
-			if (Conductor.songPosition - FlxG.sound.music.time > 16 || Conductor.songPosition - FlxG.sound.music.time < -16) {
+			if (Config.get("gameplay", "smoothsync")) { // aparently this doesnt work very well sometimes so i made it a setting
+				Conductor.songPosition += elapsed * 1000;
+				if (Conductor.songPosition - FlxG.sound.music.time > 16 || Conductor.songPosition - FlxG.sound.music.time < -16) {
+					resyncMusic();
+				}
+			} else {
 				resyncMusic();
 			}
 		}
@@ -115,6 +119,15 @@ class FluXisClient extends FlxState {
 		if (FlxG.sound.music != null && FlxG.sound.music.playing) {
 			@:privateAccess {
 				AL.sourcef(FlxG.sound.music._channel.__source.__backend.handle, AL.PITCH, musicSpeed);
+			}
+
+			if (FlxG.keys.pressed.CONTROL) {
+				if (FlxG.keys.justPressed.COMMA) {
+					musicSpeed -= 0.1;
+				}
+				if (FlxG.keys.justPressed.PERIOD) {
+					musicSpeed += 0.1;
+				}
 			}
 		}
 	}
