@@ -1,5 +1,6 @@
 package flustix.fluXis.config;
 
+import flixel.input.keyboard.FlxKey;
 import sys.io.File;
 import haxe.Json;
 
@@ -30,6 +31,21 @@ class Config {
 		display.addEntry("framerate", 120);
         addCat(display);
 
+        var sound = new ConfigCategory("sound", confjson);
+        sound.addEntry("master", 0.5);
+		sound.addEntry("unfocused", 0.1);
+        sound.addEntry("music", 0.5);
+        sound.addEntry("sfx", 0.5);
+        sound.addEntry("hitsounds", 0.5);
+        addCat(sound);
+
+        var input = new ConfigCategory("input", confjson);
+		input.addEntry("left", FlxKey.A);
+		input.addEntry("down", FlxKey.S);
+		input.addEntry("up", FlxKey.K);
+		input.addEntry("right", FlxKey.L);
+        addCat(input);
+
         save();
     }
 
@@ -38,17 +54,13 @@ class Config {
     }
 
     public static function get(cat:String, entry:String):Dynamic {
-        try {
-            return conf[cat].getEntry(entry).value;
-        } catch (ex) {
-            FluXis.log(ex.toString());
-            return null;
-        }
+        return conf[cat].getEntry(entry).value;
     }
 
 	public static function set(cat:String, entry:String, val:Dynamic) {
 		try {
 			conf[cat].getEntry(entry).value = val;
+            save();
 		} catch (ex) {
 			FluXis.log(ex.toString());
 		}

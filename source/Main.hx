@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import openfl.system.Capabilities;
 import flustix.fluXis.utils.ImportUtils;
 import openfl.Lib;
@@ -42,7 +43,15 @@ class Main extends Sprite {
 
 		instance = new FlxGame(gameW, gameH, FluXisLoading, 1, gameFramerate, gameFramerate, true, gameFullscreen);
 		addChild(instance);
+		setVolume();
 		addChild(new FluXisFPS());
+	}
+
+	function setVolume() {
+		FlxG.sound.muteKeys = [];
+		FlxG.sound.volumeDownKeys = [];
+		FlxG.sound.volumeUpKeys = [];
+		FlxG.sound.volume = Config.get("sound", "master");
 	}
 
 	private function onFileDropped(filePath:String):Void {

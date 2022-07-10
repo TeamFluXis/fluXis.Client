@@ -206,24 +206,24 @@ class GameplayScreen extends FluXisScreen {
 		#if desktop
 		// just pressed
 		var JPR = [
-			FlxG.keys.justPressed.A,
-			FlxG.keys.justPressed.S,
-			FlxG.keys.justPressed.K,
-			FlxG.keys.justPressed.L
+			FlxG.keys.anyJustPressed([Config.get("input", "left")]),
+			FlxG.keys.anyJustPressed([Config.get("input", "down")]),
+			FlxG.keys.anyJustPressed([Config.get("input", "up")]),
+			FlxG.keys.anyJustPressed([Config.get("input", "right")])
 		];
 		// pressed
 		var PR = [
-			FlxG.keys.pressed.A,
-			FlxG.keys.pressed.S,
-			FlxG.keys.pressed.K,
-			FlxG.keys.pressed.L
+			FlxG.keys.anyPressed([Config.get("input", "left")]),
+			FlxG.keys.anyPressed([Config.get("input", "down")]),
+			FlxG.keys.anyPressed([Config.get("input", "up")]),
+			FlxG.keys.anyPressed([Config.get("input", "right")])
 		];
 		// released
 		var RL = [
-			FlxG.keys.justReleased.A,
-			FlxG.keys.justReleased.S,
-			FlxG.keys.justReleased.K,
-			FlxG.keys.justReleased.L
+			FlxG.keys.anyJustReleased([Config.get("input", "left")]),
+			FlxG.keys.anyJustReleased([Config.get("input", "down")]),
+			FlxG.keys.anyJustReleased([Config.get("input", "up")]),
+			FlxG.keys.anyJustReleased([Config.get("input", "right")])
 		];
 		#elseif mobile
 		// just pressed
@@ -235,7 +235,7 @@ class GameplayScreen extends FluXisScreen {
 		#end
 
 		if (JPR.contains(true)) {
-			FlxG.sound.play("assets/skin/sound/hitsound/hit.ogg");
+			FlxG.sound.play("assets/skin/sound/hitsound/hit.ogg", Config.get("sound", "hitsound"));
 
 			var hitableNotes:Array<HitNote> = [];
 			notes.forEachAlive(function(note:HitNote) {
@@ -267,7 +267,7 @@ class GameplayScreen extends FluXisScreen {
 		if (RL.contains(true)) {
 			notes.forEachAlive(function(note:HitNote) {
 				if (note.noteHitable && !note.noteMissed && note.noteType == HOLDEND && RL[note.noteLane]) {
-					FlxG.sound.play("assets/skin/sound/hitsound/hit.ogg");
+					FlxG.sound.play("assets/skin/sound/hitsound/hit.ogg", Config.get("sound", "hitsound"));
 					hitNote(note);
 				}
 			});
@@ -314,7 +314,7 @@ class GameplayScreen extends FluXisScreen {
 			notes.add(newNote);
 		}
 
-		FlxG.sound.playMusic(SongSession.song.soundData);
+		FlxG.sound.playMusic(SongSession.song.soundData, Config.get("sound", "music"));
 		FlxG.sound.music.time = 0;
 		FlxG.sound.music.pause();
 		Conductor.songPosition = -2000;

@@ -1,5 +1,6 @@
 package flustix.fluXis.screens.songselect;
 
+import flustix.fluXis.config.Config;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxTween;
 import flustix.fluXis.screens.menu.MainMenuScreen;
@@ -67,7 +68,7 @@ class SongSelectScreen extends FluXisScreen {
 
 		if (prevSong != SongSession.curSong) {
 			client.bg.changebg(FluXis.songs[SongSession.curSong].id, by < 0);
-			FlxG.sound.playMusic(FluXis.songs[SongSession.curSong].soundData);
+			FlxG.sound.playMusic(FluXis.songs[SongSession.curSong].soundData, Config.get("sound", "music"));
 		}
 	}
 

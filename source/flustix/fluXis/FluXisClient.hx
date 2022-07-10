@@ -1,5 +1,6 @@
 package flustix.fluXis;
 
+import flixel.tweens.FlxTween;
 import flustix.fluXis.config.Config;
 import openfl.filters.BitmapFilterQuality;
 import openfl.filters.BlurFilter;
@@ -128,5 +129,9 @@ class FluXisClient extends FlxState {
 
 	function resyncMusic() {
 		Conductor.songPosition = FlxG.sound.music.time;
+	}
+
+	function changeVolume(to:Float) {
+		FlxTween.tween(FlxG.sound, {volume: to}, 0.1);
 	}
 }
