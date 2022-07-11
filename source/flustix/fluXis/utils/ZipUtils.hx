@@ -20,9 +20,9 @@ class ZipUtils {
     */
 	public static function unzip(zipFile:String, destDir:String):Void {
 		#if windows
-		Sys.command('util\\7z\\7za.exe x ${zipFile} -o${destDir} -r');
+		Sys.command('util\\7z\\7za.exe x "${zipFile}" -o"${destDir}" -r');
 		#else
-		Sys.command('unzip ${zipFile} -d ${destDir}');
+		Sys.command('unzip "${zipFile}" -d "${destDir}"');
 		#end
     }
 

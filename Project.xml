@@ -21,6 +21,7 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="discord_rpc" if="cpp"/>
 	<haxelib name="crashdumper"/>
+	<haxelib name="yaml"/>
 
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
 	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />

@@ -1,5 +1,6 @@
 package flustix.fluXis.preloader;
 
+import flustix.fluXis.utils.SortUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -53,6 +54,7 @@ class FluXisLoading extends FlxState {
 
 		Thread.create(() -> {
 			FluXis.songs = Song.loadSongs();
+			SortUtils.sortSonglist();
 			FluXis.log("Loaded songs!");
 			FlxTween.tween(continueText, {alpha: 1}, 0.8);
 			ready = true;

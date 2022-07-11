@@ -1,5 +1,6 @@
 package flustix.fluXis.song;
 
+import flustix.fluXis.utils.SortUtils;
 import flustix.fluXis.song.SongData;
 import haxe.Json;
 import openfl.media.Sound;
@@ -18,19 +19,6 @@ class Song {
 				addSong(songFolder, list);
 			}
 		}
-
-		list.sort(function(a:SongMetaData, b:SongMetaData):Int {
-			var a2 = a.name.toUpperCase();
-			var b2 = b.name.toUpperCase();
-
-			if (a2 < b2) {
-				return -1;
-			} else if (a2 > b2) {
-				return 1;
-			} else {
-				return 0;
-			}
-		});
 
 		return list;
 	}

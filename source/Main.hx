@@ -59,5 +59,8 @@ class Main extends Sprite {
 
 		if (filePath.endsWith(".fluxmp"))
 			ImportUtils.fluxmp(filePath);
+
+		if (filePath.endsWith(".qp"))
+			ImportUtils.qp(filePath);
 	}
 }
